@@ -1,0 +1,98 @@
+/* Application Form Container */
+.application-container {
+    max-width: 700px;
+    margin: 50px auto;
+    padding: 30px 40px;
+    background: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  }
+  
+  .application-container h2 {
+    text-align: center;
+    margin-bottom: 25px;
+    font-size: 26px;
+    color: #333;
+    font-weight: 600;
+  }
+  
+  /* Form Layout */
+  .application-container form {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+  }
+  
+  .application-container form div {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  /* Labels */
+  .application-container label {
+    font-weight: 600;
+    margin-bottom: 6px;
+    color: #444;
+  }
+  
+  /* Inputs, Selects, Textareas */
+  .application-container input,
+  .application-container select,
+  .application-container textarea {
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-size: 15px;
+    transition: border 0.3s ease, box-shadow 0.3s ease;
+  }
+  
+  .application-container input:focus,
+  .application-container select:focus,
+  .application-container textarea:focus {
+    outline: none;
+    border-color: #007bff;
+    box-shadow: 0 0 6px rgba(0, 123, 255, 0.3);
+  }
+  
+  /* File Upload */
+  .application-container input[type="file"] {
+    border: none;
+    padding: 8px 0;
+    font-size: 14px;
+  }
+  
+  /* Button */
+  .application-container button {
+    background: #007bff;
+    color: white;
+    padding: 14px;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.3s ease;
+  }
+  
+  .application-container button:hover {
+    background: #0056b3;
+  }
+  
+  /* Back Link */
+  .application-container p {
+    margin-top: 20px;
+    text-align: center;
+  }
+  
+  .application-container a {
+    text-decoration: none;
+    color: #007bff;
+    font-weight: 500;
+    transition: color 0.3s ease;
+  }
+  
+  .application-container a:hover {
+    color: #0056b3;
+  }
+  

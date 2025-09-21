@@ -1,0 +1,106 @@
+<div class="application-container">
+  <h2>Job Application Form</h2>
+
+  <form (ngSubmit)="onSubmit()">
+    <!-- Full Name -->
+    <div>
+      <label for="fullName">Full Name *</label>
+      <input
+        type="text"
+        id="fullName"
+        name="fullName"
+        [(ngModel)]="formData.fullName"
+        required
+      />
+    </div>
+
+    <!-- Email -->
+    <div>
+      <label for="email">Email *</label>
+      <input
+        type="email"
+        id="email"
+        name="email"
+        [(ngModel)]="formData.email"
+        required
+      />
+    </div>
+
+    <!-- Phone -->
+    <div>
+      <label for="phone">Phone Number</label>
+      <input
+        type="tel"
+        id="phone"
+        name="phone"
+        [(ngModel)]="formData.phone"
+      />
+    </div>
+
+    <!-- Position -->
+    <div>
+      <label for="position">Position Applied For *</label>
+      <select
+        id="position"
+        name="position"
+        [(ngModel)]="formData.position"
+        required
+      >
+        <option value="">Select a position</option>
+        <option value="frontend-developer">Frontend Developer</option>
+        <option value="backend-developer">Backend Developer</option>
+        <option value="fullstack-developer">Full Stack Developer</option>
+        <option value="ui-ux-designer">UI/UX Designer</option>
+        <option value="project-manager">Project Manager</option>
+        <option value="data-analyst">Data Analyst</option>
+      </select>
+    </div>
+
+    <!-- Experience -->
+    <div>
+      <label for="experience">Years of Experience</label>
+      <select
+        id="experience"
+        name="experience"
+        [(ngModel)]="formData.experience"
+      >
+        <option value="">Select experience level</option>
+        <option value="0-1">0-1 years</option>
+        <option value="2-3">2-3 years</option>
+        <option value="4-5">4-5 years</option>
+        <option value="6-10">6-10 years</option>
+        <option value="10+">10+ years</option>
+      </select>
+    </div>
+
+    <!-- Cover Letter -->
+    <div>
+      <label for="coverLetter">Cover Letter</label>
+      <textarea
+        id="coverLetter"
+        name="coverLetter"
+        [(ngModel)]="formData.coverLetter"
+        rows="5"
+        placeholder="Tell us why you're interested in this position..."
+      ></textarea>
+    </div>
+
+    <!-- Resume Upload -->
+    <div>
+      <label for="resume">Resume (PDF, DOC, DOCX)</label>
+      <input
+        type="file"
+        id="resume"
+        name="resume"
+        accept=".pdf,.doc,.docx"
+        (change)="onFileChange($event)"
+      />
+    </div>
+
+    <button type="submit">Submit Application</button>
+  </form>
+
+  <p>
+    <a routerLink="/dashboard">← Back to Dashboard</a>
+  </p>
+</div>

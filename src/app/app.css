@@ -1,0 +1,39 @@
+/* Reset nav defaults */
+nav {
+    background: #0288D1;
+    padding: 15px 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 25px;
+    font-family: "Roboto", sans-serif;
+  }
+  
+  /* Nav links */
+  nav a {
+    color: white;
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 16px;
+    transition: color 0.3s, border-bottom 0.3s;
+    padding: 6px 10px;
+    border-radius: 4px;
+  }
+  
+  /* Hover effect */
+  nav a:hover {
+    color: #ffeb3b;
+  }
+  
+  /* Active link */
+  nav a.active {
+    border-bottom: 2px solid #cfcfcf;
+  }
+  
+  /* Divider line under nav */
+  hr {
+    margin: 0;
+    border: none;
+    border-top: 1px solid #ddd;
+  }
+  
