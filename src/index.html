@@ -6,6 +6,13 @@
   <base href="/">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="icon" type="image/x-icon" href="favicon.ico">
+  <!-- Runtime environment config for client-side usage (e.g., OCR keys) -->
+  <script>
+    window.ngEnvironment = {
+      // OCR.Space API key used by ApplicationForm.extractTextWithOcrSpace
+      ocrSpaceApiKey: 'K82548749688957'
+    };
+  </script>
 </head>
 <body>
   <app-root></app-root>

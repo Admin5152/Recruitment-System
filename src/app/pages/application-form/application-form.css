@@ -1,98 +1,238 @@
 /* Application Form Container */
 .application-container {
-    max-width: 700px;
-    margin: 50px auto;
-    padding: 30px 40px;
-    background: #ffffff;
-    border-radius: 12px;
-    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
-    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  max-width: 750px;
+  margin: 40px auto;
+  padding: 40px;
+  background: linear-gradient(135deg, #f8fafc 0%, #ffffff 100%);
+  border-radius: 16px;
+  border: 1px solid #e2e8f0;
+  box-shadow: 
+      0 10px 25px rgba(0, 0, 0, 0.05),
+      0 5px 10px rgba(0, 0, 0, 0.02),
+      inset 0 1px 0 rgba(255, 255, 255, 0.8);
+  font-family: 'Inter', 'Segoe UI', system-ui, -apple-system, sans-serif;
+  position: relative;
+  overflow: hidden;
+}
+
+.application-container::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, #0066cc 0%, #0099ff 50%, #0066cc 100%);
+}
+
+.application-container h2 {
+  text-align: center;
+  margin-bottom: 35px;
+  font-size: 28px;
+  font-weight: 700;
+  color: #1a202c;
+  letter-spacing: -0.5px;
+  position: relative;
+  padding-bottom: 15px;
+}
+
+.application-container h2::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 60px;
+  height: 3px;
+  background: linear-gradient(90deg, #0066cc, #0099ff);
+  border-radius: 2px;
+}
+
+/* Form Layout */
+.application-container form {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+
+.application-container form div {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Labels */
+.application-container label {
+  font-weight: 600;
+  margin-bottom: 8px;
+  color: #2d3748;
+  font-size: 14px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+/* Inputs, Selects, Textareas */
+.application-container input,
+.application-container select,
+.application-container textarea {
+  padding: 14px 16px;
+  border: 2px solid #e2e8f0;
+  border-radius: 10px;
+  font-size: 15px;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  background: #ffffff;
+  position: relative;
+}
+
+.application-container input:focus,
+.application-container select:focus,
+.application-container textarea:focus {
+  outline: none;
+  border-color: #0066cc;
+  box-shadow: 
+      0 0 0 3px rgba(0, 102, 204, 0.1),
+      0 2px 8px rgba(0, 102, 204, 0.1);
+  transform: translateY(-1px);
+}
+
+.application-container input:hover,
+.application-container select:hover,
+.application-container textarea:hover {
+  border-color: #cbd5e0;
+}
+
+/* File Upload */
+.application-container input[type="file"] {
+  border: 2px dashed #e2e8f0;
+  padding: 20px;
+  background: #f8fafc;
+  transition: all 0.3s ease;
+}
+
+.application-container input[type="file"]:hover {
+  border-color: #0066cc;
+  background: #f0f7ff;
+}
+
+.application-container input[type="file"]:focus {
+  border-style: solid;
+  border-color: #0066cc;
+}
+
+/* Button */
+.application-container button {
+  background: linear-gradient(135deg, #0066cc 0%, #0099ff 100%);
+  color: white;
+  padding: 16px 32px;
+  border: none;
+  border-radius: 10px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  overflow: hidden;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  margin-top: 10px;
+}
+
+.application-container button::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+  transition: left 0.5s;
+}
+
+.application-container button:hover {
+  transform: translateY(-2px);
+  box-shadow: 
+      0 8px 20px rgba(0, 102, 204, 0.3),
+      0 2px 6px rgba(0, 102, 204, 0.2);
+}
+
+.application-container button:hover::before {
+  left: 100%;
+}
+
+.application-container button:active {
+  transform: translateY(0);
+}
+
+/* Back Link */
+.application-container p {
+  margin-top: 30px;
+  text-align: center;
+  color: #718096;
+  font-size: 14px;
+}
+
+.application-container a {
+  text-decoration: none;
+  color: #0066cc;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  position: relative;
+  padding-bottom: 2px;
+}
+
+.application-container a::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0;
+  height: 1px;
+  background: #0066cc;
+  transition: width 0.3s ease;
+}
+
+.application-container a:hover {
+  color: #004499;
+}
+
+.application-container a:hover::after {
+  width: 100%;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .application-container {
+      margin: 20px;
+      padding: 30px 25px;
+  }
+  
+  .form-row {
+      grid-template-columns: 1fr;
+      gap: 0;
   }
   
   .application-container h2 {
-    text-align: center;
-    margin-bottom: 25px;
-    font-size: 26px;
-    color: #333;
-    font-weight: 600;
+      font-size: 24px;
+      margin-bottom: 25px;
   }
-  
-  /* Form Layout */
-  .application-container form {
-    display: flex;
-    flex-direction: column;
-    gap: 18px;
-  }
-  
-  .application-container form div {
-    display: flex;
-    flex-direction: column;
-  }
-  
-  /* Labels */
-  .application-container label {
-    font-weight: 600;
-    margin-bottom: 6px;
-    color: #444;
-  }
-  
-  /* Inputs, Selects, Textareas */
-  .application-container input,
-  .application-container select,
-  .application-container textarea {
-    padding: 12px;
-    border: 1px solid #ccc;
-    border-radius: 8px;
-    font-size: 15px;
-    transition: border 0.3s ease, box-shadow 0.3s ease;
-  }
-  
-  .application-container input:focus,
-  .application-container select:focus,
-  .application-container textarea:focus {
-    outline: none;
-    border-color: #007bff;
-    box-shadow: 0 0 6px rgba(0, 123, 255, 0.3);
-  }
-  
-  /* File Upload */
-  .application-container input[type="file"] {
-    border: none;
-    padding: 8px 0;
-    font-size: 14px;
-  }
-  
-  /* Button */
-  .application-container button {
-    background: #007bff;
-    color: white;
-    padding: 14px;
-    border: none;
-    border-radius: 8px;
-    font-size: 16px;
-    font-weight: 600;
-    cursor: pointer;
-    transition: background 0.3s ease;
-  }
-  
-  .application-container button:hover {
-    background: #0056b3;
-  }
-  
-  /* Back Link */
-  .application-container p {
-    margin-top: 20px;
-    text-align: center;
-  }
-  
-  .application-container a {
-    text-decoration: none;
-    color: #007bff;
-    font-weight: 500;
-    transition: color 0.3s ease;
-  }
-  
-  .application-container a:hover {
-    color: #0056b3;
-  }
-  
+}
+
+/* Custom select arrow */
+.application-container select {
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%23666' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 16px center;
+  background-size: 16px;
+}
+
+/* Textarea resize handle */
+.application-container textarea {
+  resize: vertical;
+  min-height: 120px;
+}

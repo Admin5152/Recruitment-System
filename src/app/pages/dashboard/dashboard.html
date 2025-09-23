@@ -56,6 +56,12 @@
             <p>{{ app.coverLetter }}</p>
           </div>
 
+          <!-- Resume Text Collapsible -->
+          <details *ngIf="app.resumeText">
+            <summary>View Extracted Resume Text</summary>
+            <pre style="white-space: pre-wrap; background:#f7f7f7; padding:12px; border-radius:8px; max-height:250px; overflow:auto;">{{ app.resumeText }}</pre>
+          </details>
+
           <div class="application-actions">
             <button (click)="deleteApplication(app.id)" class="delete-btn">Delete Application</button>
           </div>

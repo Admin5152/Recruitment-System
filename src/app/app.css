@@ -1,39 +1,166 @@
-/* Reset nav defaults */
+/* Modern Navigation Bar */
 nav {
-    background: #0288D1;
-    padding: 15px 30px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 25px;
-    font-family: "Roboto", sans-serif;
+  background: linear-gradient(135deg, #0066cc 0%, #0099ff 100%);
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Inter', 'Segoe UI', system-ui, -apple-system, sans-serif;
+  box-shadow: 0 4px 20px rgba(0, 102, 204, 0.2);
+  position: relative;
+  min-height: 70px;
+}
+
+nav::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, #003366 0%, #0066cc 50%, #003366 100%);
+}
+
+nav::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.3) 50%, transparent 100%);
+}
+
+.nav-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 30px;
+  width: 100%;
+  max-width: 1200px;
+  padding: 0 20px;
+}
+
+/* Nav links */
+nav a {
+  color: white;
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 16px;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  padding: 12px 20px;
+  border-radius: 8px;
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  letter-spacing: 0.3px;
+}
+
+nav a::before {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 0;
+  height: 2px;
+  background: rgba(255, 255, 255, 0.8);
+  transition: width 0.3s ease;
+  border-radius: 2px;
+}
+
+nav a::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 0;
+  transform: translateY(-50%);
+  width: 1px;
+  height: 20px;
+  background: rgba(255, 255, 255, 0.2);
+}
+
+nav a:first-child::after {
+  display: none;
+}
+
+/* Hover effect */
+nav a:hover {
+  background: rgba(255, 255, 255, 0.1);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+nav a:hover::before {
+  width: 70%;
+}
+
+/* Active link */
+nav a.active {
+  background: rgba(255, 255, 255, 0.15);
+  font-weight: 600;
+  backdrop-filter: blur(10px);
+}
+
+nav a.active::before {
+  width: 70%;
+  background: white;
+}
+
+/* Icon styling */
+nav a i {
+  font-size: 18px;
+  transition: transform 0.3s ease;
+}
+
+nav a:hover i {
+  transform: scale(1.1);
+}
+
+/* Divider line under nav */
+hr {
+  margin: 0;
+  border: none;
+  border-top: 1px solid #e2e8f0;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  nav {
+      min-height: 60px;
   }
   
-  /* Nav links */
+  .nav-container {
+      gap: 15px;
+      padding: 0 15px;
+      flex-wrap: wrap;
+      justify-content: space-around;
+  }
+  
   nav a {
-    color: white;
-    text-decoration: none;
-    font-weight: 500;
-    font-size: 16px;
-    transition: color 0.3s, border-bottom 0.3s;
-    padding: 6px 10px;
-    border-radius: 4px;
+      padding: 10px 15px;
+      font-size: 14px;
+      gap: 6px;
   }
   
-  /* Hover effect */
-  nav a:hover {
-    color: #ffeb3b;
+  nav a::after {
+      display: none;
+  }
+}
+
+@media (max-width: 480px) {
+  .nav-container {
+      gap: 10px;
   }
   
-  /* Active link */
-  nav a.active {
-    border-bottom: 2px solid #cfcfcf;
+  nav a {
+      padding: 8px 12px;
+      font-size: 13px;
   }
   
-  /* Divider line under nav */
-  hr {
-    margin: 0;
-    border: none;
-    border-top: 1px solid #ddd;
+  nav a i {
+      font-size: 16px;
   }
-  
+}

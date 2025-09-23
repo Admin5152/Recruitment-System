@@ -87,14 +87,22 @@
 
     <!-- Resume Upload -->
     <div>
-      <label for="resume">Resume (PDF, DOC, DOCX)</label>
+      <label for="resume">Resume (PDF only)</label>
       <input
         type="file"
         id="resume"
         name="resume"
-        accept=".pdf,.doc,.docx"
+        accept=".pdf,application/pdf"
         (change)="onFileChange($event)"
       />
+      <p *ngIf="isExtracting" style="margin-top:8px; color:#555;">Extracting text, please wait…</p>
+    </div>
+
+    <!-- Resume Preview -->
+    <div *ngIf="resumeText || resumeFileName">
+      <h3>Resume Preview</h3>
+      <p *ngIf="resumeFileName"><strong>File:</strong> {{ resumeFileName }}</p>
+      <pre style="white-space: pre-wrap; background:#f7f7f7; padding:12px; border-radius:8px; max-height:200px; overflow:auto;">{{ resumeText }}</pre>
     </div>
 
     <button type="submit">Submit Application</button>

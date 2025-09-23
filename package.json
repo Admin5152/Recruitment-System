@@ -36,7 +36,10 @@
     "express": "^5.1.0",
     "firebase": "^11.10.0",
     "paper": "^0.12.18",
+    "pdf-lib": "^1.17.1",
+    "pdfjs-dist": "^5.4.149",
     "rxjs": "~7.8.0",
+    "tesseract.js": "^6.0.1",
     "tslib": "^2.3.0"
   },
   "devDependencies": {
