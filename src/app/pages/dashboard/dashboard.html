@@ -29,6 +29,18 @@
     <!-- Applications Section -->
     <section class="applications-section">
       <h2>Your Applications</h2>
+
+      <!-- Filter Toolbar -->
+      <div class="filter-toolbar" *ngIf="applications.length > 0" style="display:flex; gap:12px; align-items:center; margin:12px 0; flex-wrap:wrap;">
+        <label for="positionFilter" style="font-weight:600;">Filter by position:</label>
+        <select id="positionFilter" [(ngModel)]="filterPosition" style="padding:8px 10px; border-radius:8px; border:1px solid #e5e7eb;">
+          <option value="">All positions</option>
+          <option *ngFor="let pos of uniquePositions" [value]="pos">{{ pos }}</option>
+        </select>
+        <!-- Optional: free-text contains filter; uncomment if desired -->
+        <!-- <input [(ngModel)]="filterPosition" placeholder="Type to filter (e.g. Frontend)" style="padding:8px 10px; border-radius:8px; border:1px solid #e5e7eb; min-width:220px;"/> -->
+        <span style="color:#6b7280; font-size:14px;">Showing {{ filteredApplications.length }} of {{ applications.length }}</span>
+      </div>
       
       <div *ngIf="applications.length === 0" class="no-applications">
         <p>You haven't submitted any applications yet.</p>
@@ -36,7 +48,7 @@
       </div>
 
       <div *ngIf="applications.length > 0" class="applications-grid">
-        <div *ngFor="let app of applications" class="application-card">
+        <div *ngFor="let app of filteredApplications" class="application-card">
           <div class="application-header">
             <h3>{{ app.position }}</h3>
             <span class="status" [class]="getStatusClass('pending')">Pending</span>

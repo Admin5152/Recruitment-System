@@ -1,43 +1,75 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Inject, PLATFORM_ID } from '@angular/core';
 import { Router, RouterModule } from '@angular/router';
-import { CommonModule } from '@angular/common';
+import { CommonModule, isPlatformBrowser } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-dashboard',
   standalone: true,
-  imports: [RouterModule, CommonModule],
+  imports: [RouterModule, CommonModule, FormsModule],
   templateUrl: './dashboard.html',
   styleUrls: ['./dashboard.css']
 })
 export class Dashboard implements OnInit {
   user: any = null;
   applications: any[] = [];
+  filterPosition: string = '';
 
-  constructor(private router: Router) {}
+  constructor(private router: Router, @Inject(PLATFORM_ID) private platformId: Object) {}
 
   ngOnInit() {
+    if (!isPlatformBrowser(this.platformId)) {
+      // Running on the server (SSR) – skip localStorage access
+      return;
+    }
     // Get user data
-    const storedUser = localStorage.getItem('user');
-    if (storedUser) {
-      this.user = JSON.parse(storedUser);
+    try {
+      const storedUser = localStorage.getItem('user');
+      if (storedUser) {
+        this.user = JSON.parse(storedUser);
+      }
+    } catch (e) {
+      console.warn('[Dashboard] Failed to read user from localStorage', e);
     }
 
     // Get applications
-    const storedApplications = localStorage.getItem('applications');
-    if (storedApplications) {
-      this.applications = JSON.parse(storedApplications);
+    try {
+      const storedApplications = localStorage.getItem('applications');
+      if (storedApplications) {
+        this.applications = JSON.parse(storedApplications);
+      }
+    } catch (e) {
+      console.warn('[Dashboard] Failed to read applications from localStorage', e);
     }
   }
 
+  get filteredApplications(): any[] {
+    const term = (this.filterPosition || '').trim().toLowerCase();
+    if (!term) return this.applications;
+    return this.applications.filter(a => (a.position || '').toLowerCase().includes(term));
+  }
+
+  get uniquePositions(): string[] {
+    const set = new Set<string>();
+    for (const a of this.applications) {
+      if (a?.position) set.add(String(a.position));
+    }
+    return Array.from(set).sort((a,b) => a.localeCompare(b));
+  }
+
   logout() {
-    localStorage.removeItem('user');
+    if (isPlatformBrowser(this.platformId)) {
+      try { localStorage.removeItem('user'); } catch {}
+    }
     this.router.navigate(['/']);
   }
 
   deleteApplication(id: number) {
     if (confirm('Are you sure you want to delete this application?')) {
       this.applications = this.applications.filter(app => app.id !== id);
-      localStorage.setItem('applications', JSON.stringify(this.applications));
+      if (isPlatformBrowser(this.platformId)) {
+        try { localStorage.setItem('applications', JSON.stringify(this.applications)); } catch {}
+      }
     }
   }
 
