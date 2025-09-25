@@ -1,0 +1,150 @@
+<div class="hr-container">
+  <header class="hr-header">
+    <h1>HR Console</h1>
+    <nav>
+      <a routerLink="/" class="link">Home</a>
+      <a routerLink="/dashboard" class="link">Candidate Dashboard</a>
+      <a routerLink="/jobs" class="link">Jobs Page</a>
+    </nav>
+  </header>
+
+  <div class="hr-content">
+    <!-- Jobs Management -->
+    <section class="jobs-section">
+      <h2>Job Management</h2>
+
+      <div class="job-form">
+        <div class="row">
+          <label>Template</label>
+          <select [(ngModel)]="newJob.typeKey" (change)="onTemplateChange()">
+            <option value="frontend">Frontend</option>
+            <option value="backend">Backend</option>
+            <option value="projectManager">Project Manager</option>
+            <option value="dataAnalyst">Data Analyst</option>
+            <option value="uiux">UI/UX</option>
+            <option value="custom">Custom</option>
+          </select>
+        </div>
+        <div class="row">
+          <label>Job Title</label>
+          <input [(ngModel)]="newJob.title" placeholder="e.g., Frontend Developer"/>
+        </div>
+        <div class="row">
+          <label>Description</label>
+          <textarea [(ngModel)]="newJob.description" placeholder="Short description of the role"></textarea>
+        </div>
+        <div class="row">
+          <label>Required Skills (comma-separated)</label>
+          <textarea [(ngModel)]="newJob.requiredCSV" placeholder="HTML, CSS, JavaScript, Angular"></textarea>
+        </div>
+        <div class="row">
+          <label>Optional Skills (comma-separated)</label>
+          <textarea [(ngModel)]="newJob.optionalCSV" placeholder="TypeScript, Tailwind, Next.js"></textarea>
+        </div>
+        <div class="actions">
+          <button class="primary" (click)="addJob()">Add Job</button>
+        </div>
+      </div>
+
+      <div class="jobs-list" *ngIf="jobs.length > 0">
+        <h3>Jobs ({{ jobs.length }})</h3>
+        <div class="job-card" *ngFor="let job of jobs">
+          <div class="job-head">
+            <div>
+              <h4>
+                {{ job.title }}
+                <span *ngIf="job.pinned" title="Pinned" style="color:#f59e0b; margin-left:6px;">⭐</span>
+              </h4>
+              <small>Created: {{ job.createdAt | date:'short' }}</small>
+            </div>
+            <div class="actions" style="display:flex; gap:8px;">
+              <button class="warn" (click)="togglePin(job)">{{ job.pinned ? 'Unpin' : 'Pin' }}</button>
+              <button class="danger" (click)="deleteJob(job.id)">Delete</button>
+            </div>
+          </div>
+          <p *ngIf="job.description">{{ job.description }}</p>
+          <p><strong>Required:</strong> <span class="chip" *ngFor="let r of job.required">{{ r }}</span></p>
+          <p><strong>Optional:</strong> <span class="chip optional" *ngFor="let o of job.optional">{{ o }}</span></p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Applications Management -->
+    <section class="apps-section">
+      <h2>Applications</h2>
+
+      <div class="toolbar">
+        <label>Filter by position</label>
+        <input [(ngModel)]="appFilterPosition" placeholder="e.g., Frontend"/>
+
+        <label>Status</label>
+        <select [(ngModel)]="appFilterStatus">
+          <option value="">Any</option>
+          <option value="pending">Pending</option>
+          <option value="reviewed">Reviewed</option>
+          <option value="accepted">Accepted</option>
+          <option value="rejected">Rejected</option>
+        </select>
+
+        <label>Sort by</label>
+        <select [(ngModel)]="appSortBy">
+          <option value="score">Highest Score</option>
+          <option value="date">Most Recent</option>
+        </select>
+
+        <span class="muted" style="margin-left:auto;">Need to refresh matches?</span>
+        <button class="warn" (click)="reEvaluatePotentials()">Re-evaluate Potential Fits</button>
+      </div>
+
+      <div *ngIf="filteredApplications.length === 0" class="empty">No applications found.</div>
+
+      <div class="app-grid" *ngIf="filteredApplications.length > 0">
+        <div class="app-card" *ngFor="let app of filteredApplications">
+          <div class="app-head">
+            <div>
+              <h4>{{ app.fullName }}</h4>
+              <small>{{ app.email }} — {{ app.position }}</small>
+            </div>
+            <span class="status" [ngClass]="app.status || 'pending'">{{ (app.status || 'pending') | titlecase }}</span>
+          </div>
+
+          <div class="score-line">
+            <strong>{{ app.scorePercent || (app.maxScore ? (100 * (app.score||0)/app.maxScore) : 0) | number:'1.0-0' }}%</strong> match
+            <span class="muted"> ({{ app.score }}/{{ app.maxScore }})</span>
+          </div>
+
+          <div class="chips">
+            <span class="chip" *ngFor="let k of (app.matchedRequired || app.matchedKeywords || [])">{{ k }}</span>
+            <span class="chip optional" *ngFor="let k of (app.matchedOptional || [])">{{ k }}</span>
+          </div>
+
+          <div *ngIf="app.potentialJobTitles?.length" style="margin:8px 0; font-size:13px;">
+            <strong style="color:#065f46;">Potential fit for:</strong>
+            <span class="chip" *ngFor="let t of app.potentialJobTitles" style="background:#ecfeff; color:#065f46;">{{ t }}</span>
+          </div>
+
+          <details *ngIf="app.resumeText">
+            <summary>Resume</summary>
+            <div class="resume" [innerHTML]="app.resumeText"></div>
+          </details>
+
+          <!-- Interview scheduling controls -->
+          <div class="row" style="margin-top:10px; display:flex; flex-wrap:wrap; gap:8px; align-items:center;">
+            <label style="font-weight:600;">Interview:</label>
+            <input type="datetime-local" [(ngModel)]="app.interviewDateLocal" [disabled]="(app.status || 'pending') !== 'accepted'" />
+            <button class="success" (click)="scheduleInterview(app)" [disabled]="(app.status || 'pending') !== 'accepted'">Save</button>
+            <button class="danger" (click)="clearInterview(app)" [disabled]="!app.interviewDate">Clear</button>
+            <span class="muted" *ngIf="app.interviewDate">Scheduled for {{ app.interviewDate | date:'medium' }} at {{ app.interviewDate | date:'shortTime' }}</span>
+            <span class="muted" *ngIf="(app.status || 'pending') !== 'accepted'">(Approve first to enable scheduling)</span>
+          </div>
+
+          <div class="actions">
+            <button class="success" (click)="setStatus(app, 'accepted')">Approve</button>
+            <button class="warn" (click)="setStatus(app, 'reviewed')">Mark Reviewed</button>
+            <button class="danger" (click)="setStatus(app, 'rejected')">Decline</button>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+</div>

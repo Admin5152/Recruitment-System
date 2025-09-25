@@ -11,5 +11,7 @@ export const routes: Routes = [
   { path: 'sign-in', component: SignIn },
   { path: 'apply', component: ApplicationForm },
   { path: 'dashboard', component: Dashboard },
+  { path: 'hr', loadComponent: () => import('./pages/hr/hr').then(m => m.HRPage) },
+  { path: 'jobs', loadComponent: () => import('./pages/jobs/jobs').then(m => m.JobsPage) },
   { path: '**', redirectTo: '' } // fallback
 ];

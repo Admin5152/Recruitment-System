@@ -1,0 +1,57 @@
+<div class="jobs-container">
+  <!-- <header class="jobs-header">
+    <h1>Open Positions</h1>
+    <nav>
+      <a routerLink="/" class="link">Home</a>
+      <a routerLink="/apply" class="link">Apply</a>
+    </nav>
+  </header> -->
+
+  <section *ngIf="pinnedJobs.length > 0" class="pinned-section">
+    <h2>Featured Roles</h2>
+    <div class="job-grid">
+      <article class="job-card" *ngFor="let job of pinnedJobs">
+        <div class="job-head">
+          <h3>{{ job.title }} <span title="Pinned" class="star">⭐</span></h3>
+          <small>Posted {{ job.createdAt | date:'mediumDate' }}</small>
+        </div>
+        <p *ngIf="job.description" class="desc">{{ job.description }}</p>
+        <div class="skills">
+          <div class="group">
+            <strong>Required</strong>
+            <span class="chip" *ngFor="let r of job.required">{{ r }}</span>
+          </div>
+          <div class="group">
+            <strong>Nice to have</strong>
+            <span class="chip optional" *ngFor="let o of job.optional">{{ o }}</span>
+          </div>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <section class="all-section">
+    <h2>All Jobs</h2>
+    <div *ngIf="jobs.length === 0" class="empty">No jobs posted yet. Please check back later.</div>
+
+    <div class="job-list" *ngIf="jobs.length > 0">
+      <article class="job-row" *ngFor="let job of otherJobs">
+        <div class="title">
+          <h3>{{ job.title }}</h3>
+          <small>Posted {{ job.createdAt | date:'mediumDate' }}</small>
+        </div>
+        <p *ngIf="job.description" class="desc">{{ job.description }}</p>
+        <div class="skills">
+          <div class="group">
+            <strong>Required</strong>
+            <span class="chip" *ngFor="let r of job.required">{{ r }}</span>
+          </div>
+          <div class="group">
+            <strong>Nice to have</strong>
+            <span class="chip optional" *ngFor="let o of job.optional">{{ o }}</span>
+          </div>
+        </div>
+      </article>
+    </div>
+  </section>
+</div>

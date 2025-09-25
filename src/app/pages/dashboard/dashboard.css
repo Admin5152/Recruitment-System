@@ -418,6 +418,28 @@
   font-weight: 600;
 }
 
+/* Fit-level badges */
+.badge-strong {
+  background: #dcfce7; /* green-50 */
+  color: #166534;      /* green-800 */
+}
+.badge-good {
+  background: #fffbeb; /* amber-50 */
+  color: #92400e;      /* amber-800 */
+}
+.badge-weak {
+  background: #f3f4f6; /* gray-100 */
+  color: #374151;      /* gray-700 */
+}
+
+/* Highlighted keywords inside resume preview */
+details mark {
+  background: #fef3c7; /* amber-100 */
+  color: #92400e;      /* amber-800 */
+  padding: 0 3px;
+  border-radius: 3px;
+}
+
 /* Responsive Design */
 @media (max-width: 768px) {
   .dashboard-header {
