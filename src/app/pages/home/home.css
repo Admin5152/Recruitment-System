@@ -419,7 +419,7 @@ body {
 .primary-button:hover {
   transform: translateY(-4px);
   box-shadow: 0 15px 35px rgba(255, 255, 255, 0.25);
-  background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%);
+  background: linear-gradient(135deg, #3b82f6 0%, #3b82f6 100%);
   color: white;
 }
 
